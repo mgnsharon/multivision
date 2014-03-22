@@ -4,11 +4,7 @@
   "authors": [
     "Chris Sharon <chris@xdoji.com>"
   ],
-  "description": "\"Extreme tech training\"",
-  "moduleType": [
-    "globals",
-    "node"
-  ],
+  "description": "Extreme tech training",
   "license": "MIT",
   "private": true,
   "ignore": [
