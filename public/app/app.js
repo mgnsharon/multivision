@@ -1,3 +1,4 @@
+'use strict';
 angular.module('app', ['ui.router', 'restangular']);
 
 angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider) {
