@@ -10,18 +10,18 @@ module.exports = function (config) {
   });
 
   var  userSchema = mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    userName: String
+    fname: String,
+    lname: String,
+    username: String
   });
 
   var User = mongoose.model('User', userSchema);
 
   User.find({}).exec(function(err, collection) {
     if (collection.length === 0) {
-      User.create({firstName: 'Ben', lastName: 'Dover', userName: 'bdover'});
-      User.create({firstName: 'Ipee', lastName: 'Freely', userName: 'ipfreely'});
-      User.create({firstName: 'Juan', lastName: 'Valdez', userName: 'jvaldez'});
+      User.create({fname: 'Ben', lname: 'Dover', username: 'bdover'});
+      User.create({fname: 'Ipee', lname: 'Freely', username: 'ipfreely'});
+      User.create({fname: 'Juan', lname: 'Valdez', username: 'jvaldez'});
     }
   });
 

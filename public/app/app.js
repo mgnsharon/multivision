@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app', ['ui.router', 'restangular']);
+angular.module('app', ['ui.router', 'restangular', 'mv.notification']);
 
 angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider) {
   $locationProvider.html5Mode(true);

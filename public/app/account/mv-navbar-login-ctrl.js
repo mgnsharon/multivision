@@ -1,18 +1,18 @@
-angular.module('app').controller('mvNavbarLoginCtrl', function($scope, Restangular, $log) {
-  var loginResource = Restangular.all('login');
+angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifier, mvIdentity, mvAuth) {
 
+  $scope.identity = mvIdentity;
   $scope.signin = function (user, password) {
 
-    loginResource.post({ userName: user, password: password }).then(
-      function (res) {
-        if (res.success) {
-          $log.info('Logged In');
+    mvAuth.authenticateUser(user, password).then(
+      function (authenticated) {
+        if (authenticated) {
+          mvNotifier.success('You have successfully logged in.', 'Yo, Dawg');
         } else {
-          $log.error('Failed.');
+          mvNotifier.error('Invalid username/password.', 'You Suck');
         }
       },
-      function (err) {
-        $log.error(err);
+      function (reason) {
+        mvNotifier.error(reason, 'We Suck.');
       }
     );
 
