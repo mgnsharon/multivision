@@ -1,7 +1,7 @@
 {
   "name": "multivision",
   "version": "0.0.0",
-  "description": "",
+  "description": "MEAN course",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
     "node": "0.10.26",
     "npm": "1.4.3"
   },
-  "author": "",
+  "author": "Chris Sharon",
   "license": "ISC",
   "dependencies": {
     "jade": "~1.3.0",

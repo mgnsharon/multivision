@@ -1,26 +1,27 @@
+
 var express = require('express'),
   stylus = require('stylus'),
   mongoose = require('mongoose');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var APP_ROOT = process.env.PWD = process.cwd() || __dirname;
 var app = express();
-process.env.PWD = process.cwd();
 
 function compile(str, path) {
   return stylus(str).set('filename', path);
 }
 
 app.configure(function() {
-  app.set('views', __dirname + '/server/views');
+  app.set('views', APP_ROOT + '/server/views');
   app.set('view engine', 'jade');
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(stylus.middleware(
     {
-      src: __dirname + '/public',
+      src: APP_ROOT + '/public',
       compile: compile
     }
   ));
-  app.use(express.static(process.env.PWD + '/public'));
+  app.use(express.static(APP_ROOT + '/public'));
 });
 if (env === 'production') {
   mongoose.connect(process.env.MONGOHQ_URL);
