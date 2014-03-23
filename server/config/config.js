@@ -1,5 +1,6 @@
 
 var rootPath = process.env.PWD = process.cwd();
+console.log('App rootPath: ' + rootPath);
 
 module.exports = {
   development: {
