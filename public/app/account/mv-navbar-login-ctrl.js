@@ -1,8 +1,8 @@
-angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifier, mvIdentity, mvAuth) {
+angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifier, mvIdentity, mvAuth, $location, $log) {
 
   $scope.identity = mvIdentity;
-  $scope.signin = function (user, password) {
 
+  $scope.signin = function (user, password) {
     mvAuth.authenticateUser(user, password).then(
       function (authenticated) {
         if (authenticated) {
@@ -15,7 +15,17 @@ angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifie
         mvNotifier.error(reason, 'We Suck.');
       }
     );
+  };
 
-
+  $scope.signout = function() {
+    mvAuth.logout().then(
+      function(resp) {
+        $log.info(resp);
+        $scope.username = '';
+        $scope.password = '';
+        mvNotifier.success('You have been logged out.', 'Cya Beyotch');
+        $location.path('/');
+      }
+    )
   };
 });
