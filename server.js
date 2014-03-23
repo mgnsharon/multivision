@@ -3,6 +3,7 @@ var express = require('express'),
   mongoose = require('mongoose');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
+process.env.PWD = process.cwd();
 
 function compile(str, path) {
   return stylus(str).set('filename', path);
@@ -19,7 +20,7 @@ app.configure(function() {
       compile: compile
     }
   ));
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(process.env.PWD + '/public'));
 });
 if (env === 'production') {
   mongoose.connect(process.env.MONGOHQ_URL);
@@ -32,22 +33,12 @@ db.once('open', function() {
   console.log('multivision db opened');
 });
 
-var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-
-Message.findOne().exec(function(err, messageDoc) {
-  mongoMessage = messageDoc.message;
-});
-
 app.get('/partials/:partialsPath', function(req, res) {
   res.render('partials/' + req.params.partialsPath);
 });
 
 app.get('*', function(req, res) {
-  res.render('index', {
-    mongoMessage: mongoMessage
-  });
+  res.render('index');
 });
 
 var port = process.env.PORT || 3030;
