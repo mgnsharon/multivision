@@ -1,1 +1,1 @@
-<!--Created by csharon on 3/24/14.--><div class="container"><h1><i class="fa fa-user"></i><span>User Admin</span></h1></div>
+<!--Created by csharon on 3/24/14.--><div class="container"><h1><i class="fa fa-user"></i><span>User Admin</span></h1><hr/><div class="panel panel-default"></div><div class="panel-body"><div ng-repeat="user in userManager.users" class="row"><div class="col-md-3">{{user.username}}</div><div class="col-md-6">{{user.fullName()}}</div><div class="col-md-3">{{user.isAdmin()}}</div></div></div></div>

@@ -4,3 +4,12 @@
   h1
     i.fa.fa-user
     span User Admin
+
+  hr
+  .panel.panel-default
+
+  .panel-body
+    .row(ng-repeat="user in userManager.users")
+      .col-md-3 {{user.username}}
+      .col-md-6 {{user.fullName()}}
+      .col-md-3 {{user.isAdmin()}}
