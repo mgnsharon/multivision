@@ -1,7 +1,10 @@
 angular.module('app')
   .factory('mvAuth', function(Restangular, mvIdentity, $q) {
-    var login = Restangular.all('login');
-    var logout = Restangular.all('logout');
+    var ra = Restangular.withConfig(function(Configurer) {
+      Configurer.setBaseUrl('/');
+    });
+    var login = ra.all('login');
+    var logout = ra.all('logout');
 
     return {
       authenticateUser: function(username, password) {
