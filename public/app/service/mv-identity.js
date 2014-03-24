@@ -9,8 +9,8 @@ angular.module('app').factory('mvIdentity', function($window, MVUser) {
     isAuthenticated: function() {
       return !!this.currentUser;
     },
-    isAdmin: function() {
-      return !!this.currentUser && this.currentUser.isAdmin();
+    isAuthorized: function (role) {
+      return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
     }
   }
 });

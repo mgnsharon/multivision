@@ -6,10 +6,16 @@
     span User Admin
 
   hr
-  .panel.panel-default
+  table.table.table-responsive.table-striped.table-hover
+    thead
+      tr
+        th USERNAME
+        th NAME
+        th ADMIN
+    tbody
+      tr(ng-repeat="user in userManager.users")
+        td {{user.username}}
+        td {{user.fullName()}}
+        td
+          input(type="checkbox", ng-checked="user.hasRole('admin')")
 
-  .panel-body
-    .row(ng-repeat="user in userManager.users")
-      .col-md-3 {{user.username}}
-      .col-md-6 {{user.fullName()}}
-      .col-md-3 {{user.isAdmin()}}
