@@ -9,8 +9,10 @@
   ui.nav.navbar-nav.navbar-right(ng-if="identity.isAuthenticated()")
     li.dropdown
       a.dropdown-toggle(href="", data-toggle="dropdown")
-        | {{identity.currentUser.fname + " " + identity.currentUser.lname}}
+        | {{identity.currentUser.fullName()}}
         b.caret
       ul.dropdown-menu
+        li(ng-show="identity.isAdmin()")
+          a(href="", ng-click="getUsers()") User Admin
         li
           a(href="", ng-click="signout()") Sign Out

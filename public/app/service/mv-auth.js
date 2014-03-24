@@ -1,14 +1,13 @@
 angular.module('app')
-  .factory('mvAuth', function(Restangular, mvIdentity, $q) {
-    var session = Restangular.all('session');
+  .factory('mvAuth', function(mvIdentity, $q, MVUser, mvSessionResource) {
 
     return {
       authenticateUser: function(username, password) {
-        var promise = session.post({ username: username, password: password })
+        return mvSessionResource.create(username, password)
           .then(
             function (res) {
               if (res.success) {
-                mvIdentity.currentUser = res.user;
+                mvIdentity.currentUser = new MVUser(res.user);
                 return true;
               } else {
                 return false;
@@ -18,17 +17,14 @@ angular.module('app')
               return $q.reject(err);
             }
           );
-        return promise;
       },
       logout: function() {
-        var promise = session.remove().then(
+        return mvSessionResource.destroy().then(
           function(resp) {
             mvIdentity.currentUser = undefined;
             return resp;
           }
         );
-
-        return promise;
       }
     }
   });

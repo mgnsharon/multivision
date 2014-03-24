@@ -1,9 +1,12 @@
-var auth = require('./auth');
+var auth = require('./auth'),
+    UserCtrl = require('../controllers/users');
 
 module.exports = function (app) {
   app.get('/partials/*', function(req, res) {
     res.render('../../public/app/' + req.params);
   });
+
+  app.get('/api/v1/admin/users', auth.requiresRole('admin'), UserCtrl.getAll);
 
   app.post('/api/v1/session', auth.authenticate);
 

@@ -1,10 +1,18 @@
 'use strict';
-angular.module('app', ['ui.router', 'restangular', 'mv.notification']);
+angular.module('app', [
+  'ui.router',
+  'mv.resource.admin',
+  'mv.managers.User',
+  'mv.resource.Session',
+  'mv.notification'
+]);
 
 angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
-  $stateProvider.state('/', { url: '/', templateUrl: '/partials/main/main', controller: 'mvMainCtrl'});
+  $stateProvider
+    .state('/', { url: '/', templateUrl: '/partials/main/main', controller: 'mvMainCtrl'})
+    .state('/admin', { url: '/admin', templateUrl: '/partials/admin/admin', controller: 'mvAdminCtrl'});
   RestangularProvider.setBaseUrl('/api/v1');
   RestangularProvider.setRestangularFields({ id: '_id' });
 });
