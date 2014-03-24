@@ -1,4 +1,4 @@
-angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifier, mvIdentity, mvAuth, $location, $log, $state) {
+angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifier, mvIdentity, mvAuth, $location, $log) {
 
   $scope.identity = mvIdentity;
 
@@ -29,8 +29,5 @@ angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifie
     )
   };
 
-  $scope.getUsers = function () {
-    $state.go('/admin');
-  }
 
 });

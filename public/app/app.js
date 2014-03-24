@@ -8,6 +8,14 @@ angular.module('app', [
 ]);
 
 angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
+  var routeAuth = {
+    admin: {
+      auth: function (mvAuth) {
+        return mvAuth.authorizeCurrentUserForRoute('admin');
+      }
+    }
+  };
+
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
   $stateProvider
@@ -16,15 +24,7 @@ angular.module('app').config(function($stateProvider, $locationProvider, $urlRou
       url: '/admin',
       templateUrl: '/partials/admin/admin',
       controller: 'mvAdminCtrl',
-      resolve: {
-        auth: function (mvIdentity, $q) {
-          if (mvIdentity.isAuthorized('admin')) {
-            return true;
-          } else {
-            return $q.reject('NOT_AUTHORIZED');
-          }
-        }
-      }
+      resolve: routeAuth.admin
     });
   RestangularProvider.setBaseUrl('/api/v1');
   RestangularProvider.setRestangularFields({ id: '_id' });

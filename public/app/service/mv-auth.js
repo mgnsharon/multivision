@@ -25,6 +25,13 @@ angular.module('app')
             return resp;
           }
         );
+      },
+      authorizeCurrentUserForRoute: function (role) {
+        if (mvIdentity.isAuthorized(role)) {
+          return true;
+        } else {
+          return $q.reject('NOT_AUTHORIZED')
+        }
       }
     }
   });

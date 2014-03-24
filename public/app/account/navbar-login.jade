@@ -12,7 +12,7 @@
         | {{identity.currentUser.fullName()}}
         b.caret
       ul.dropdown-menu
-        li(ng-show="identity.isAuthorized('admin')")
-          a(href="", ng-click="getUsers()") User Admin
+        li(ng-show="identity.currentUser.hasRole('admin')")
+          a(href="/admin") User Admin
         li
           a(href="", ng-click="signout()") Sign Out

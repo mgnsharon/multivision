@@ -6,8 +6,8 @@ angular.module('app').factory('MVUser', function() {
     this.roles = options.roles || [];
   };
 
-  User.prototype.isAdmin = function() {
-    return this.roles && this.roles.indexOf('admin') > -1;
+  User.prototype.hasRole = function(role) {
+    return this.roles && this.roles.indexOf(role) > -1;
   };
 
   User.prototype.fullName = function() {
