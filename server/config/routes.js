@@ -5,11 +5,11 @@ module.exports = function (app) {
     res.render('../../public/app/' + req.params);
   });
 
-  app.post('/login', auth.authenticate);
+  app.post('/api/v1/session', auth.authenticate);
 
-  app.post('/logout', function(req, res) {
+  app.del('/api/v1/session', function(req, res) {
     req.logout();
-    res.send(204, {msg: 'OK'});
+    res.send(200);
   });
 
   app.get('*', function(req, res) {

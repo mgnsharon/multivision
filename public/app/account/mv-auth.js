@@ -1,14 +1,10 @@
 angular.module('app')
   .factory('mvAuth', function(Restangular, mvIdentity, $q) {
-    var ra = Restangular.withConfig(function(Configurer) {
-      Configurer.setBaseUrl('/');
-    });
-    var login = ra.all('login');
-    var logout = ra.all('logout');
+    var session = Restangular.all('session');
 
     return {
       authenticateUser: function(username, password) {
-        var promise = login.post({ username: username, password: password })
+        var promise = session.post({ username: username, password: password })
           .then(
             function (res) {
               if (res.success) {
@@ -25,7 +21,7 @@ angular.module('app')
         return promise;
       },
       logout: function() {
-        var promise = logout.post({logout: true}).then(
+        var promise = session.remove().then(
           function(resp) {
             mvIdentity.currentUser = undefined;
             return resp;
