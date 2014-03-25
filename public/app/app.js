@@ -1,5 +1,6 @@
 'use strict';
 angular.module('app', [
+  'mv.model.User',
   'ui.router',
   'mv.resource.admin',
   'mv.managers.User',
