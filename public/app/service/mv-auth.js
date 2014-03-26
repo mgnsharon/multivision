@@ -1,4 +1,4 @@
-angular.module('app')
+angular.module('mv.Auth', [])
   .factory('mvAuth', function(mvIdentity, $q, MVUser, mvSessionResource) {
 
     return {

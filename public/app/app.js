@@ -2,10 +2,13 @@
 angular.module('app', [
   'mv.model.User',
   'ui.router',
+  'mv.Identity',
   'mv.resource.admin',
   'mv.managers.User',
   'mv.resource.Session',
-  'mv.notification'
+  'mv.notification',
+  'mv.accounts.SignUp',
+  'mv.Auth'
 ]);
 
 angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
@@ -21,6 +24,7 @@ angular.module('app').config(function($stateProvider, $locationProvider, $urlRou
   $urlRouterProvider.otherwise('/');
   $stateProvider
     .state('/', { url: '/', templateUrl: '/partials/main/main', controller: 'mvMainCtrl'})
+    .state('/signup', { url: '/signup', templateUrl: '/partials/account/signup', controller: 'mvSignupCtrl'})
     .state('/admin', {
       url: '/admin',
       templateUrl: '/partials/admin/admin',
