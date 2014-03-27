@@ -1,4 +1,4 @@
-angular.module('mv.Auth', [])
+angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'])
   .factory('mvAuth', function(mvIdentity, $q, MVUser, mvSessionResource) {
 
     return {
@@ -7,7 +7,7 @@ angular.module('mv.Auth', [])
           .then(
             function (res) {
               if (res.success) {
-                mvIdentity.currentUser = new MVUser(res.user);
+                mvIdentity.currentUser = MVUser(res.user);
                 return true;
               } else {
                 return false;
