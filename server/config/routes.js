@@ -10,6 +10,14 @@ module.exports = function (app) {
 
   app.post('/api/v1/session', auth.authenticate);
 
+  app.get('/api/v1/session/me', function (req, resp) {
+    if (req.user) {
+      resp.send(req.user);
+    } else {
+      resp.send(401);
+    }
+  });
+
   app.del('/api/v1/session', function(req, res) {
     req.logout();
     res.send(200);

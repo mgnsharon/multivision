@@ -1,5 +1,5 @@
 angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'])
-  .factory('mvAuth', function(mvIdentity, $q, MVUser, mvSessionResource) {
+  .factory('mvAuth', function($q, mvIdentity, MVUser, mvSessionResource) {
 
     return {
       authenticateUser: function(username, password) {
@@ -12,6 +12,16 @@ angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'
               } else {
                 return false;
               }
+            },
+            function (err) {
+              return $q.reject(err);
+            }
+          );
+      },
+      getSession: function () {
+        return mvSessionResource.get().then(
+            function (resp) {
+              mvIdentity.currentUser = resp;
             },
             function (err) {
               return $q.reject(err);

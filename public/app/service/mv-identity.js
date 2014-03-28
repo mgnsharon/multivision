@@ -1,10 +1,8 @@
-angular.module('mv.Identity', ['mv.model.User'])
-  .factory('mvIdentity', function($window, MVUser) {
+angular.module('mv.Identity', [])
+  .factory('mvIdentity', function() {
 
     var currentUser;
-    if (!!$window.bootstrappedUserObject) {
-      currentUser = MVUser($window.bootstrappedUserObject);
-    }
+
     return {
       currentUser: currentUser,
       isAuthenticated: function() {

@@ -1,4 +1,4 @@
-extends ../includes/layout
+extends layout
 
 block main-content
   .navbar.navbar-inverse.navbar-fixed-top
@@ -11,7 +11,7 @@ block main-content
         ul.nav.navbar-nav
           li
             a(href="/") Home
-        div(ng-include="'/partials/account/navbar-login'")
+        div(ng-include="'/app/account/navbar-login.html'")
           
   section.content
     div(ui-view)

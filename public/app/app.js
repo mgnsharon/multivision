@@ -23,11 +23,11 @@ angular.module('app').config(function($stateProvider, $locationProvider, $urlRou
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
   $stateProvider
-    .state('/', { url: '/', templateUrl: '/partials/main/main', controller: 'mvMainCtrl'})
-    .state('/signup', { url: '/signup', templateUrl: '/partials/account/signup', controller: 'mvSignupCtrl'})
+    .state('/', { url: '/', templateUrl: '/app/main/main.html', controller: 'mvMainCtrl'})
+    .state('/signup', { url: '/signup', templateUrl: '/app/account/signup.html', controller: 'mvSignupCtrl'})
     .state('/admin', {
       url: '/admin',
-      templateUrl: '/partials/admin/admin',
+      templateUrl: '/app/admin/admin.html',
       controller: 'mvAdminCtrl',
       resolve: routeAuth.admin
     });
@@ -35,9 +35,10 @@ angular.module('app').config(function($stateProvider, $locationProvider, $urlRou
   RestangularProvider.setRestangularFields({ id: '_id' });
 });
 
-angular.module('app').run(function ($rootScope, $state) {
+angular.module('app').run(function ($rootScope, $state, mvAuth) {
   $rootScope.$on('$stateChangeError', function (e, to, toParams, from, fromParams, err) {
     if (err === 'NOT_AUTHORIZED') $state.go('/');
   });
+  mvAuth.getSession();
 });
 

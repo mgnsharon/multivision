@@ -25,6 +25,15 @@
     "mocha": "^1.18.2",
     "karma-chai-plugins": "^0.2.0",
     "karma": "^0.12.1",
-    "karma-chrome-launcher": "^0.1.2"
+    "karma-chrome-launcher": "^0.1.2",
+    "gulp": "^3.5.6",
+    "gulp-jade": "^0.4.2",
+    "gulp-concat": "^2.2.0",
+    "gulp-uglify": "^0.2.1",
+    "gulp-ngmin": "^0.1.2",
+    "gulp-jshint": "^1.5.1",
+    "gulp-styl": "^0.2.1",
+    "jshint-stylish": "^0.1.5",
+    "gulp-clean": "^0.2.4"
   }
 }
