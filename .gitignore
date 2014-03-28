@@ -1,5 +1,5 @@
 node_modules/
-public/vendor/
+app/vendor/
 build/
 .idea/
 *.iml
