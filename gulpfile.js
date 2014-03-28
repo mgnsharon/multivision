@@ -4,9 +4,9 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   ngmin = require('gulp-ngmin'),
   jshint = require('gulp-jshint'),
-  styl = require('gulp-styl'),
   stylish = require('jshint-stylish'),
-  clean = require('gulp-clean');
+  clean = require('gulp-clean'),
+  nodemon = require('gulp-nodemon');
 
 var paths = {
   src: {
@@ -25,6 +25,35 @@ var paths = {
     mobile: 'build/mobile'
   }
 };
+
+gulp.task('lint:srv', function () {
+  gulp.src('srv/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('develop', function () {
+  nodemon({
+    script: 'srv/server.js',
+    ext: 'js',
+    ignore: [
+      'app',
+      'node_modules',
+      'build',
+      'test',
+      'gulpfile.js',
+      'karma.conf.js'
+    ]})
+    .on('change', ['lint:srv'])
+    .on('restart', function () {
+      console.log('restarted dog!')
+    });
+});
+
+gulp.task('dist:server', function () {
+  gulp.src('srv/**')
+    .pipe(gulp.dest('build/srv'));
+});
 
 
 gulp.task('mobile:scripts', function () {

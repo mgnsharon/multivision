@@ -16,7 +16,7 @@ module.exports = function () {
             return done(null, false);
           }
         }
-      )
+      );
     }
   ));
 
@@ -35,6 +35,6 @@ module.exports = function () {
           return done(null, false);
         }
       }
-    )
+    );
   });
-}
+};

@@ -22,6 +22,10 @@
     "_": true,
     "console": true,
     "moment": true,
-    "Spinner": true
+    "Spinner": true,
+    "require": true,
+    "exports": true,
+    "module": true,
+    "process": true
   }
 }
