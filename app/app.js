@@ -8,7 +8,8 @@ angular.module('app', [
   'mv.resource.Session',
   'mv.notification',
   'mv.accounts.SignUp',
-  'mv.Auth'
+  'mv.Auth',
+  'mv.tpls'
 ]);
 
 angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
@@ -23,11 +24,11 @@ angular.module('app').config(function($stateProvider, $locationProvider, $urlRou
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
   $stateProvider
-    .state('/', { url: '/', templateUrl: '/app/main/main.html', controller: 'mvMainCtrl'})
-    .state('/signup', { url: '/signup', templateUrl: '/app/account/signup.html', controller: 'mvSignupCtrl'})
+    .state('/', { url: '/', templateUrl: 'app/templates/main/main.html', controller: 'mvMainCtrl'})
+    .state('/signup', { url: '/signup', templateUrl: 'app/templates/account/signup.html', controller: 'mvSignupCtrl'})
     .state('/admin', {
       url: '/admin',
-      templateUrl: '/app/admin/admin.html',
+      templateUrl: 'app/templates/admin/admin.html',
       controller: 'mvAdminCtrl',
       resolve: routeAuth.admin
     });

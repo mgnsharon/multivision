@@ -6,22 +6,27 @@ var gulp = require('gulp'),
   jshint = require('gulp-jshint'),
   stylish = require('jshint-stylish'),
   clean = require('gulp-clean'),
-  nodemon = require('gulp-nodemon');
+  nodemon = require('gulp-nodemon'),
+  jade = require('gulp-jade'),
+  ngtemplates = require('gulp-angular-templatecache'),
+  exclude = require('gulp-ignore').exclude;
 
 var paths = {
+  templates: ['app/**/*.jade', '!app/vendor/**', '!app/partials/**'],
+  vendor: ['app/vendor/**'],
   src: {
     srv: {
       server: 'server.js',
       libs: 'server'
     },
     client: {
-      js: ['public/app/**/*.js'],
+      js: ['app/**/*.js', '!app/vendor/**'],
       css: ['public/css/**/*.styl']
     }
   },
   build: {
     server: 'build/dist',
-    webapp: 'build/dist/public',
+    webapp: 'build/public/app',
     mobile: 'build/mobile'
   }
 };
@@ -32,7 +37,39 @@ gulp.task('lint:srv', function () {
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('develop', function () {
+gulp.task('copy:vendor', function () {
+  gulp.src(paths.vendor)
+    .pipe(gulp.dest('build/public/vendor'));
+});
+
+gulp.task('jade:index', function () {
+  gulp.src('app/partials/index.jade')
+    .pipe(jade({pretty: true}))
+    .pipe(gulp.dest('build/public'));
+});
+
+gulp.task('dev:scripts', function () {
+  gulp.src(paths.src.client.js)
+    .pipe(gulp.dest(paths.build.webapp));
+});
+
+gulp.task('dev:templates', function () {
+  gulp.src(paths.templates)
+    .pipe(jade())
+    .pipe(ngtemplates('mv-tpls.js', {
+      module: 'mv.tpls',
+      standalone: true,
+      root: 'app/templates'
+    }))
+    .pipe(gulp.dest('build/public/app'));
+});
+
+gulp.task('watch:dev', function () {
+  gulp.watch(paths.templates, ['dev:templates']);
+  gulp.watch(paths.build.webapp, ['dev:scripts']);
+});
+
+gulp.task('serve:dev', function () {
   nodemon({
     script: 'srv/server.js',
     ext: 'js',
@@ -44,10 +81,10 @@ gulp.task('develop', function () {
       'gulpfile.js',
       'karma.conf.js'
     ]})
-    .on('change', ['lint:srv'])
     .on('restart', function () {
       console.log('restarted dog!')
     });
+
 });
 
 gulp.task('dist:server', function () {
@@ -93,3 +130,5 @@ gulp.task('clean:server', function () {
 });
 
 gulp.task('mobile', ['lint', 'clean:mobile', 'mobile:scripts', 'mobile:styles']);
+
+gulp.task('dev', ['jade:index', 'copy:vendor', 'dev:scripts', 'dev:templates', 'serve:dev', 'watch:dev']);
