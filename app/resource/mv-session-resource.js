@@ -6,7 +6,7 @@ angular.module('mv.resource.Session', ['restangular', 'mv.model.User'])
     var resource = Restangular.all('session');
     Restangular.extendModel('session', function (model) {
       if (model.success) {
-        model.user = MVUser(model.user);
+        model.user = new MVUser(model.user);
       }
       return model;
     });
@@ -36,7 +36,7 @@ angular.module('mv.resource.Session', ['restangular', 'mv.model.User'])
 
             return $q.reject(err);
           }
-        ).finally(
+        )['finally'](
           function () {
             pending = false;
           }
@@ -52,5 +52,5 @@ angular.module('mv.resource.Session', ['restangular', 'mv.model.User'])
           }
         );
       }
-    }
+    };
   });

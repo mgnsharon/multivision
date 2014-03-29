@@ -1,13 +1,13 @@
 angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'])
-  .factory('mvAuth', function($q, mvIdentity, MVUser, mvSessionResource) {
+  .factory('mvAuth', function ($q, mvIdentity, MVUser, mvSessionResource) {
 
     return {
-      authenticateUser: function(username, password) {
+      authenticateUser: function (username, password) {
         return mvSessionResource.create(username, password)
           .then(
             function (res) {
               if (res.success) {
-                mvIdentity.currentUser = MVUser(res.user);
+                mvIdentity.currentUser = res.user;
                 return true;
               } else {
                 return false;
@@ -28,9 +28,9 @@ angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'
             }
           );
       },
-      logout: function() {
+      logout: function () {
         return mvSessionResource.destroy().then(
-          function(resp) {
+          function (resp) {
             mvIdentity.currentUser = undefined;
             return resp;
           }
@@ -40,8 +40,8 @@ angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'
         if (mvIdentity.isAuthorized(role)) {
           return true;
         } else {
-          return $q.reject('NOT_AUTHORIZED')
+          return $q.reject('NOT_AUTHORIZED');
         }
       }
-    }
+    };
   });

@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('app', [
   'mv.model.User',
   'ui.router',
@@ -12,7 +12,7 @@ angular.module('app', [
   'mv.tpls'
 ]);
 
-angular.module('app').config(function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
+angular.module('app').config(function ($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
   var routeAuth = {
     admin: {
       auth: function (mvAuth) {
@@ -38,7 +38,7 @@ angular.module('app').config(function($stateProvider, $locationProvider, $urlRou
 
 angular.module('app').run(function ($rootScope, $state, mvAuth) {
   $rootScope.$on('$stateChangeError', function (e, to, toParams, from, fromParams, err) {
-    if (err === 'NOT_AUTHORIZED') $state.go('/');
+    if (err === 'NOT_AUTHORIZED') { $state.go('/'); }
   });
   mvAuth.getSession();
 });

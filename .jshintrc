@@ -17,6 +17,7 @@
   "white": true,
   "browser": true,
   "jquery": true,
+  "strict": false,
   "globals": {
     "angular": true,
     "_": true,
@@ -26,6 +27,7 @@
     "require": true,
     "exports": true,
     "module": true,
-    "process": true
+    "process": true,
+    "toastr": true
   }
 }

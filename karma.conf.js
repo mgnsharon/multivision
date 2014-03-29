@@ -14,23 +14,23 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'public/vendor/jquery/dist/jquery.js',
-      'public/vendor/bootstrap/dist/js/bootstrap.js',
-      'public/vendor/lodash/dist/lodash.js',
-      'public/vendor/angular/angular.js',
-      'public/vendor/angular-mocks/angular-mocks.js',
-      'public/vendor/restangular/dist/restangular.js',
-      'public/vendor/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/jquery/dist/jquery.js',
+      'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/lodash/dist/lodash.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/restangular/dist/restangular.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'test/test-app.js',
-      'public/app/**/*.js',
-      'public/vendor/toastr/toastr.js',
+      'app/**/*.js',
+      'vendor/toastr/toastr.js',
       'test/spec/**/*.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-      'public/app/app.js'
+      'app/app.js'
     ],
 
 

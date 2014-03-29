@@ -1,5 +1,5 @@
-angular.module('mv.accounts.SignUp', []).
-  controller('mvSignupCtrl', function ($scope, $location, mvAuth, mvNotifier) {
+angular.module('mv.accounts.SignUp', [])
+  .controller('mvSignupCtrl', function ($scope, $log) {
 
     $scope.userForm = {
       username: '',
@@ -9,7 +9,7 @@ angular.module('mv.accounts.SignUp', []).
     };
 
     $scope.createUser = function (data) {
-
+      $log.info(data);
     };
 
   });

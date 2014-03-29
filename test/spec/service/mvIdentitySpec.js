@@ -3,43 +3,14 @@
  */
 describe('mv.Identity', function () {
   var user;
-
-  beforeEach(module('mv.Identity', function ($provide) {
-      $provide.value('$window', {});
-  }));
+  beforeEach(module('mv.Identity'));
+  beforeEach(module('mv.model.User'));
 
   describe('currentUser', function () {
 
     it('should be undefined by default', inject(function (mvIdentity) {
       expect(mvIdentity.currentUser).to.not.be.defined;
     }));
-
-    beforeEach(function () {
-      module(function ($provide) {
-        $provide.value('$window', {
-          bootstrappedUserObject: {fname:'test', lname:'user', username: 'tuser'}
-        });
-      });
-    });
-
-    it('should be defined if $window.bootstrappedUserObject is set', function () {
-
-      inject(function (mvIdentity) {
-        expect(mvIdentity.currentUser).to.be.defined;
-      });
-
-    });
-
-    it('should be a MVUser', function () {
-      inject(function (mvIdentity) {
-        expect(mvIdentity.currentUser.fname).to.equal('test');
-        expect(mvIdentity.currentUser.lname).to.equal('user');
-        expect(mvIdentity.currentUser.username).to.equal('tuser');
-        expect(mvIdentity.currentUser.roles).to.be.a('Array');
-        expect(mvIdentity.currentUser.hasRole('admin')).to.be.false;
-        expect(mvIdentity.currentUser.fullName()).to.equal('test user');
-      });
-    });
 
   });
 

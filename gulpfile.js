@@ -12,16 +12,16 @@ var gulp = require('gulp'),
   exclude = require('gulp-ignore').exclude;
 
 var paths = {
-  templates: ['app/**/*.jade', '!app/vendor/**', '!app/partials/**'],
-  vendor: ['app/vendor/**'],
+  templates: ['app/**/*.jade', '!app/partials/**'],
+  vendor: ['bower_components/**'],
   src: {
     srv: {
       server: 'server.js',
       libs: 'server'
     },
     client: {
-      js: ['app/**/*.js', '!app/vendor/**'],
-      css: ['public/css/**/*.styl']
+      js: ['app/**/*.js'],
+      css: ['app/assets/sass/**/*.sass']
     }
   },
   build: {
@@ -50,6 +50,8 @@ gulp.task('jade:index', function () {
 
 gulp.task('dev:scripts', function () {
   gulp.src(paths.src.client.js)
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
     .pipe(gulp.dest(paths.build.webapp));
 });
 
@@ -66,7 +68,7 @@ gulp.task('dev:templates', function () {
 
 gulp.task('watch:dev', function () {
   gulp.watch(paths.templates, ['dev:templates']);
-  gulp.watch(paths.build.webapp, ['dev:scripts']);
+  gulp.watch(paths.src.client.js, ['dev:scripts']);
 });
 
 gulp.task('serve:dev', function () {

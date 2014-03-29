@@ -1,4 +1,4 @@
-angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifier, mvIdentity, mvAuth, $location, $log) {
+angular.module('app').controller('mvNavbarLoginCtrl', function ($scope, mvNotifier, mvIdentity, mvAuth, $location, $log) {
 
   $scope.identity = mvIdentity;
 
@@ -17,16 +17,16 @@ angular.module('app').controller('mvNavbarLoginCtrl', function($scope, mvNotifie
     );
   };
 
-  $scope.signout = function() {
+  $scope.signout = function () {
     mvAuth.logout().then(
-      function(resp) {
+      function (resp) {
         $log.info(resp);
         $scope.username = '';
         $scope.password = '';
         mvNotifier.success('You have been logged out.', 'Cya Beyotch');
         $location.path('/');
       }
-    )
+    );
   };
 
 
