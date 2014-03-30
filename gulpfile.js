@@ -9,11 +9,15 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   jade = require('gulp-jade'),
   ngtemplates = require('gulp-angular-templatecache'),
-  exclude = require('gulp-ignore').exclude;
+  compass = require('gulp-compass'),
+  bowerFiles = require('gulp-bower-files'),
+  inject = require('gulp-inject'),
+  es = require('event-stream'),
+  _ = require('lodash');
 
 var paths = {
   templates: ['app/**/*.jade', '!app/partials/**'],
-  vendor: ['bower_components/**'],
+  vendor: ['bower_components/**', '!bower_components/bootstrap/**'],
   src: {
     srv: {
       server: 'server.js',
@@ -26,6 +30,7 @@ var paths = {
   },
   build: {
     server: 'build/dist',
+    webroot: 'build/public',
     webapp: 'build/public/app',
     mobile: 'build/mobile'
   }
@@ -38,7 +43,7 @@ gulp.task('lint:srv', function () {
 });
 
 gulp.task('copy:vendor', function () {
-  gulp.src(paths.vendor)
+  bowerFiles({debugging: true})
     .pipe(gulp.dest('build/public/vendor'));
 });
 
@@ -46,6 +51,13 @@ gulp.task('jade:index', function () {
   gulp.src('app/partials/index.jade')
     .pipe(jade({pretty: true}))
     .pipe(gulp.dest('build/public'));
+});
+
+gulp.task('jade:vendor', function () {
+  gulp.src('build/public/index.html')
+    .pipe(inject(bowerFiles({read: false}), {starttag: '<!-- inject:vendor:js -->'}))
+    .pipe(gulp.dest('build/public/index.html'));
+
 });
 
 gulp.task('dev:scripts', function () {
@@ -69,6 +81,8 @@ gulp.task('dev:templates', function () {
 gulp.task('watch:dev', function () {
   gulp.watch(paths.templates, ['dev:templates']);
   gulp.watch(paths.src.client.js, ['dev:scripts']);
+  gulp.watch(paths.src.client.css, ['dev:styles']);
+  gulp.watch('app/partials/**/*.jade', ['jade:index']);
 });
 
 gulp.task('serve:dev', function () {
@@ -109,10 +123,14 @@ gulp.task('lint', function () {
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('mobile:styles', function () {
-  gulp.src(paths.src.client.css)
-    .pipe(styl({whitespace: true}))
-    .pipe(gulp.dest(paths.build.mobile.concat('/css')));
+gulp.task('dev:styles', function () {
+  gulp.src('app/assets/sass/main.sass')
+    .pipe(compass({
+      project: __dirname,
+      css: paths.build.webapp.concat('/styles'),
+      sass: 'app/assets/sass'
+    }))
+    .pipe(gulp.dest(paths.build.webroot.concat('/styles')));
 });
 
 
@@ -122,7 +140,7 @@ gulp.task('clean:mobile', function () {
 });
 
 gulp.task('clean:webapp', function () {
-  gulp.src('build/dist/public/**', {read: false})
+  gulp.src('build/public/**', {read: false})
     .pipe(clean());
 });
 
@@ -133,4 +151,4 @@ gulp.task('clean:server', function () {
 
 gulp.task('mobile', ['lint', 'clean:mobile', 'mobile:scripts', 'mobile:styles']);
 
-gulp.task('dev', ['jade:index', 'copy:vendor', 'dev:scripts', 'dev:templates', 'serve:dev', 'watch:dev']);
+gulp.task('dev', ['clean:webapp', 'dev:styles', 'jade:index', 'copy:vendor', 'dev:scripts', 'dev:templates', 'serve:dev', 'watch:dev']);

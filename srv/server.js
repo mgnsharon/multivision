@@ -8,7 +8,7 @@ var config = require('./lib/config/config')[env];
 
 require('./lib/config/express')(app, config);
 require('./lib/config/mongoose')(config);
-require('./lib/config/routes')(app);
+require('./lib/config/routes')(app, config);
 require('./lib/config/passport')();
 
 
