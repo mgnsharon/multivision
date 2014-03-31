@@ -8,10 +8,8 @@ var express = require('express'),
 
 module.exports = function (app, config) {
 
-  //app.engine('jade', require('jade').__express);
-  app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');
-  app.set('views', config.webRoot);
+  app.set('views', config.webRoot.concat('/app/partials'));
+  app.set('view engine', 'jade');
   app.use(logger('dev'));
   app.use(cookieParser());
   app.use(bodyParser());

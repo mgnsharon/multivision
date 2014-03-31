@@ -1,6 +1,7 @@
 angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'])
   .factory('mvAuth', function ($q, mvIdentity, MVUser, mvSessionResource) {
 
+    var sessionGet;
     return {
       authenticateUser: function (username, password) {
         return mvSessionResource.create(username, password)
@@ -19,14 +20,18 @@ angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'
           );
       },
       getSession: function () {
-        return mvSessionResource.get().then(
+        if (angular.isUndefined(sessionGet)) {
+          sessionGet = mvSessionResource.get().then(
             function (resp) {
               mvIdentity.currentUser = resp;
+              return resp;
             },
             function (err) {
               return $q.reject(err);
             }
           );
+        }
+        return sessionGet;
       },
       logout: function () {
         return mvSessionResource.destroy().then(
@@ -37,11 +42,16 @@ angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'
         );
       },
       authorizeCurrentUserForRoute: function (role) {
-        if (mvIdentity.isAuthorized(role)) {
-          return true;
-        } else {
-          return $q.reject('NOT_AUTHORIZED');
-        }
+        this.getSession().then(
+          function () {
+            if (mvIdentity.isAuthorized(role)) {
+              return true;
+            } else {
+              return $q.reject('NOT_AUTHORIZED');
+            }
+          }
+        );
+
       }
     };
   });
