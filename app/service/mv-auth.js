@@ -42,15 +42,27 @@ angular.module('mv.Auth', ['mv.Identity', 'mv.model.User', 'mv.resource.Session'
         );
       },
       authorizeCurrentUserForRoute: function (role) {
-        this.getSession().then(
-          function () {
-            if (mvIdentity.isAuthorized(role)) {
-              return true;
-            } else {
+        if (angular.isUndefined(mvIdentity.currentUser)) {
+          return this.getSession().then(
+            function () {
+              if (mvIdentity.isAuthorized(role)) {
+                return true;
+              } else {
+                return $q.reject('NOT_AUTHORIZED');
+              }
+            },
+            function () {
               return $q.reject('NOT_AUTHORIZED');
             }
-          }
-        );
+          );
+        }
+
+        if (mvIdentity.isAuthorized(role)) {
+          return true;
+        } else {
+          return $q.reject('NOT_AUTHORIZED');
+        }
+
 
       }
     };

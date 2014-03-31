@@ -120,7 +120,7 @@ gulp.task('serve:dev', function () {
 gulp.task('dev', [
   'clean:webapp',
   'dev:styles',
-  'copy:jade:index',
+  'jade:index',
   'copy:vendor',
   'dev:scripts',
   'dev:templates',

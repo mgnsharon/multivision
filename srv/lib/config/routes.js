@@ -1,7 +1,7 @@
 var auth = require('./auth'),
     UserCtrl = require('../controllers/users');
 
-module.exports = function (app) {
+module.exports = function (app, config) {
 
   app.route('/api/v1/admin/users')
     .get(auth.requiresRole('admin'), UserCtrl.getAll);
@@ -22,8 +22,13 @@ module.exports = function (app) {
       }
     });
 
+/*
   app.get('*', function (req, res) {
     res.render('index');
   });
+*/
 
+  app.get('*', function (req, res) {
+    res.sendfile(config.webRoot.concat('/index.html'));
+  });
 };
