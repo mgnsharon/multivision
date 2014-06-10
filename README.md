@@ -7,7 +7,7 @@ MEAN Stack Demo App based on [Pluralsight's](http://pluralsight.com/training/cou
 * Converted to ExpressJS 4
 * Uses Jade, however templates are compiled by Gulp.js, so no server side rendering is needed.
 * Has separate directories for server and client
-* Uses Gulp instead of Grunt
+* Uses Gulp for dev tasks
 * Uses Restangular instead of $resource
 * Uses Angular-ui-router instead of Angular-route
 * Uses Protractor instead of Scenario
