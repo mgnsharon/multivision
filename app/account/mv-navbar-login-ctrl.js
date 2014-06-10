@@ -6,13 +6,13 @@ angular.module('app').controller('mvNavbarLoginCtrl', function ($scope, mvNotifi
     mvAuth.authenticateUser(user, password).then(
       function (authenticated) {
         if (authenticated) {
-          mvNotifier.success('You have successfully logged in.', 'Yo, Dawg');
+          mvNotifier.success('You have successfully logged in.', 'Congrads');
         } else {
-          mvNotifier.error('Invalid username/password.', 'You Suck');
+          mvNotifier.error('Invalid username/password.', 'Login Error');
         }
       },
       function (reason) {
-        mvNotifier.error(reason, 'We Suck.');
+        mvNotifier.error(reason, 'We Really Apologize.');
       }
     );
   };
@@ -23,7 +23,7 @@ angular.module('app').controller('mvNavbarLoginCtrl', function ($scope, mvNotifi
         $log.info(resp);
         $scope.username = '';
         $scope.password = '';
-        mvNotifier.success('You have been logged out.', 'Cya Beyotch');
+        mvNotifier.success('You have been logged out.', 'Bye, Bye.');
         $location.path('/');
       }
     );

@@ -32,11 +32,11 @@ module.exports = function (config) {
       var salt, hash;
 
       salt = createSalt();
-      hash = hashPwd(salt, 'bdover');
-      User.create({fname: 'Ben', lname: 'Dover', username: 'bdover', salt: salt, hashedPwd: hash, roles: ['admin']});
+      hash = hashPwd(salt, 'pgibbons');
+      User.create({fname: 'Peter', lname: 'Gibbons', username: 'pgibbons', salt: salt, hashedPwd: hash, roles: ['admin']});
       salt = createSalt();
-      hash = hashPwd(salt, 'ipfreely');
-      User.create({fname: 'Ipee', lname: 'Freely', username: 'ipfreely', salt: salt, hashedPwd: hash, roles: []});
+      hash = hashPwd(salt, 'mbolten');
+      User.create({fname: 'Michael', lname: 'Bolten', username: 'mbolten', salt: salt, hashedPwd: hash, roles: []});
       salt = createSalt();
       hash = hashPwd(salt, 'jvaldez');
       User.create({fname: 'Juan', lname: 'Valdez', username: 'jvaldez', salt: salt, hashedPwd: hash});

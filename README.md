@@ -15,6 +15,18 @@ MEAN Stack Demo App based on [Pluralsight's](http://pluralsight.com/training/cou
 * Uses Sass Bootstrap & Compass instead of Stylus
 * Uses Font-Awesome
 
+#### Requirements
+* Node
+* Local installation of mongodb
+
+#### Running the Application
+````
+npm install && bower install
+gulp dev
+
+````
+
+
 
 
 
